@@ -1,0 +1,89 @@
+<!--<header>
+	<nav>
+	  <ul>
+		<li><a href="#">Home</a></li>
+		<li><a href="#">About</a></li>
+		<li><a href="#">Contact</a></li>
+	  </ul>
+	</nav>
+	<hgroup>
+	  <h2>Main title</h2>
+	  <h1>Secondary title</h1>
+	</hgroup> 
+</header>	
+<body>
+  <canvas id="myCanvas" width="578" height="200"></canvas>
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      context.font = 'italic 40pt Calibri';
+      context.fillText('Hello World!', 50, 100);
+    </script>
+</body>
+<footer>
+	<address>
+		Address of author goes inside author tag
+	</address>
+	Some copyright info or perhaps some author info for a <article>?
+</footer> -->
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<link href="../css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+	<script src="../js/jquery-1.8.3.js"></script>
+	<script src="../js/jquery-ui-1.9.2.custom.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script>
+	$(function() {		
+		$( "#accordion" ).accordion({
+            collapsible: true,
+			heightStyle: "content"
+        });	
+	});
+	</script>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #myCanvas {
+        border: 1px solid #9C9898;
+      }
+    </style>
+  </head>
+  <body>
+	<h1>HTML5 Examples By Jyotiprakash</h1>
+	<div id="accordion">
+		<h3>Mirror Reflection</h3>				
+		<div>
+			<canvas id="myCanvas" width="578" height="200"></canvas>
+			<BR/>
+			Please enter a text to mirror transform:&nbsp;<input type="text" name="transformText" id="transformText" /><input type="button" id="button" value="Mirror Me!" onclick="javascript:getMirrored();" /><input type="button" id="button" value="Clear" onclick="javascript:clearMirror();" />
+		</div>		
+	</div>	
+    <script>		
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+		function getMirrored(){
+			var textValue = document.getElementById('transformText').value;
+			// translate context to center of canvas
+			context.translate(canvas.width / 2, canvas.height / 2);
+			
+			// flip context horizontally
+			context.scale(1, -1);
+
+			context.font = '30pt Calibri';
+			context.textAlign = 'center';
+			context.fillStyle = 'blue';
+			context.fillText(textValue, 0, 0);
+			
+		}
+		function clearMirror(){
+			canvas.width = canvas.width;
+			document.getElementById('transformText').value = "";
+		}		
+	</script>
+	
+  </body>
+</html>

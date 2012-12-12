@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<link href="../css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+	<script src="../js/jquery-1.8.3.js"></script>
+	<script src="../js/jquery-ui-1.9.2.custom.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script>
+	$(function() {		
+		$( "#accordion" ).accordion({
+            collapsible: true,
+			heightStyle: "content"
+        });	
+	});
+	</script>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #myCanvas {
+        border: 1px solid #9C9898;
+      }
+    </style>
+  </head>
+  <body>
+	<h1>HTML5 Examples By Jyotiprakash</h1>
+	<div id="accordion">		
+		<h3>Geolocation</h3>
+		<div>
+			<div><input type="button" id="locationButton" value="Check Your Location!" onclick="javascript:getLocation();" /></div>
+			<div id="locationDetails" style="display:none;">
+				<p>
+					Starting Location (lat, lon):<br/>
+					<span id="startLat">???</span>°, <span id="startLon">???</span>°
+				</p>
+				<p>
+					You are currently rocking at:<span id="geoaddress"></span>
+				</p>	
+			</div>  
+		</div>		
+	</div>	
+    <script>
+		var geocoder;
+		
+		function getLocation(){
+		  var startPos;
+		  navigator.geolocation.getCurrentPosition(function(position) {
+		  startPos = position;		  
+		  document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+		  document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+		  codeLatLng(startPos.coords.latitude,startPos.coords.longitude);
+		  $("#locationDetails").show();
+			// same as above
+		  }, function(error) {
+			alert('Error occurred. Error code: ' + error.code);
+			// error.code can be:
+			//   0: unknown error
+			//   1: permission denied
+			//   2: position unavailable (error response from locaton provider)
+			//   3: timed out
+		  });
+		};
+		function codeLatLng(lat, lng) {
+			geocoder = new google.maps.Geocoder();
+			var latlng = new google.maps.LatLng(lat, lng);
+			geocoder.geocode({'latLng': latlng}, function(results, status) {
+			  if (status == google.maps.GeocoderStatus.OK) {			  
+				if (results[1]) {
+				 //formatted address				 
+				 $("#geoaddress").text(results[0].formatted_address);	 
+				} else {
+				  alert("No results found");
+				}
+			  } else {
+				alert("Geocoder failed due to: " + status);
+			  }
+			});
+		}		
+	</script>
+	
+  </body>
+</html>
