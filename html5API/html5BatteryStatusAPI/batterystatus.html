@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<link href="../../css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+	<script src="../../js/jquery-1.8.3.js"></script>
+	<script src="../../js/jquery-ui-1.9.2.custom.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script>
+	$(function() {		
+		$( "#accordion" ).accordion({
+            collapsible: true,
+			heightStyle: "content"
+        });	
+	});
+	</script>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }  
+	  #batteryInfo{
+		margin-left: 10px;
+		background-color:#768696;
+		width:200px;
+		height:100px;
+		position:relative;
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+	  }
+	  .info{
+		display: block;
+		font-size: 16px;
+		margin-left: 10px;
+		margin-top: 5px;
+	  }
+    </style>
+  </head>
+  <body>
+	<div>		
+		<div id="batteryInformation">
+			<span style="display: block;margin-bottom:15px;font-size: xx-large;"><strong>Battery
+				specifications</strong>
+			</span>
+			<span>
+				<p>The section below depicts a simple example which shows battery information of the device using HTML5 Battery Status API.</p>
+				<p>This API can also be used to build more advanced applications. </p>
+				<p>References:<a href="http://www.smartjava.org/content/html5-access-battery-status-through-javascript">http://www.smartjava.org/content/html5-access-battery-status-through-javascript</a></p>
+			</span>			
+			<div id="batteryInfo">
+				<span class="info" id="level"></span>
+				<span class="info" id="status"></span>
+				<span class="info" id="charged"></span>
+			</div>	
+		</div>
+	</div>
+	<script>		
+		 // get the battery information
+		var battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery;		
+		// get the battery information to be displayed		
+		$('#status').text("Charging status: " + ((battery.charging) ? "Plugged" : "Unplugged"));
+		if (battery.charging) {
+			$('#charged').text("Battery time to charge: " + battery.chargingTime);
+		} else {
+			$('#charged').text("Battery time left: " + (Math.round(battery.dischargingTime / 60)) + " minutes");
+		}
+		function updateBatteryStatus(){
+			$('#level').text("Battery level: " + Math.round(battery.level * 100) + "%");	
+		}
+		battery.addEventListener("levelchange", updateBatteryStatus);
+		updateBatteryStatus();
+	</script>
+	</body>	
+</html>	
