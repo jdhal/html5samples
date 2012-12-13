@@ -21,8 +21,8 @@
 	  #batteryInfo{
 		margin-left: 10px;
 		background-color:#768696;
-		width:200px;
-		height:100px;
+		width:250px;
+		height:150px;
 		position:relative;
 		-moz-border-radius: 15px;
 		border-radius: 15px;
@@ -31,31 +31,29 @@
 		display: block;
 		font-size: 16px;
 		margin-left: 10px;
-		margin-top: 5px;
-	  }
+		margin-top: 15px;
+	  } 
     </style>
   </head>
   <body>
-	<div>		
-		<div id="batteryInformation">
-			<span style="display: block;margin-bottom:15px;font-size: xx-large;"><strong>Battery
-				specifications</strong>
-			</span>
-			<span>
-				<p>The section below depicts a simple example which shows battery information of the device using HTML5 Battery Status API.</p>
-				<p>This API can also be used to build more advanced applications. </p>
-				<p>References:<a href="http://www.smartjava.org/content/html5-access-battery-status-through-javascript">http://www.smartjava.org/content/html5-access-battery-status-through-javascript</a></p>
-			</span>			
-			<div id="batteryInfo">
-				<span class="info" id="level"></span>
-				<span class="info" id="status"></span>
-				<span class="info" id="charged"></span>
-			</div>	
-		</div>
+	<div id="accordion">
+		<h3>Battery specifications</h3>
+		<div id="history-links">
+				<div>
+					<p>The section below depicts a simple example which shows battery information of the device using HTML5 Battery Status API.</p>
+					<p>This API can also be used to build more advanced applications. </p>
+					<p>References:<a href="http://www.smartjava.org/content/html5-access-battery-status-through-javascript">http://www.smartjava.org/content/html5-access-battery-status-through-javascript</a></p>
+				</div>
+				<div id="batteryInfo">
+					<span class="info" id="level"></span>
+					<span class="info" id="status"></span>
+					<span class="info" id="charged"></span>
+				</div>
+		</div>		
 	</div>
 	<script>		
 		 // get the battery information
-		var battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery;		
+		var battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery;
 		// get the battery information to be displayed		
 		$('#status').text("Charging status: " + ((battery.charging) ? "Plugged" : "Unplugged"));
 		if (battery.charging) {
@@ -64,10 +62,10 @@
 			$('#charged').text("Battery time left: " + (Math.round(battery.dischargingTime / 60)) + " minutes");
 		}
 		function updateBatteryStatus(){
-			$('#level').text("Battery level: " + Math.round(battery.level * 100) + "%");	
+			$('#level').text("Battery level: " + Math.round(battery.level * 100) + "%");
 		}
 		battery.addEventListener("levelchange", updateBatteryStatus);
 		updateBatteryStatus();
 	</script>
-	</body>	
-</html>	
+	</body>
+</html>
